@@ -2,7 +2,11 @@ import { memo } from 'react';
 
 function ListItem({ data, isOn }: { data: string; isOn: boolean }) {
   return (
-    <li className={`hover:bg-violet-400 cursor-pointer ${isOn && 'bg-violet-400'}`}>
+    <li
+      className={`text-center my-2 text-lg hover:bg-blue-800 hover:text-white cursor-pointer py-2 rounded-lg ${
+        isOn && 'bg-violet-400'
+      }`}
+    >
       <h1>{data}</h1>
     </li>
   );
