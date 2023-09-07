@@ -5,8 +5,8 @@ import { query } from '../util/QueryCore';
 function useInput() {
   const updateDisease = useChangeDiseasStore()?.updateDiseaStore;
   if (!updateDisease) return;
+  let Timer: ReturnType<typeof setTimeout> | undefined;
 
-  let Timer: NodeJS.Timeout | undefined;
   const onChangeValue = (inputText: string) => {
     if (Timer) clearTimeout(Timer);
     Timer = setTimeout(async () => {
