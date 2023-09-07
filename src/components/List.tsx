@@ -1,50 +1,19 @@
-import { useEffect, useState } from 'react';
 import { useDiseasStore } from '../context/DiseaseStoreContext';
 import { useDisplay } from '../context/DisplayListContext';
+import useOnidx from '../hook/useOnidx';
 import ListItem from './ListItem';
 
 function List() {
   const display = useDisplay();
   const data = useDiseasStore();
-  const [isOnIndex, setIsOnIndex] = useState(-2);
-  useEffect(() => {
-    const moveList = (e: KeyboardEvent) => {
-      e.stopPropagation();
-
-      switch (e.code) {
-        case 'ArrowUp':
-          setIsOnIndex(pre => {
-            if (pre <= 0) return (pre = 0);
-            else pre -= 1;
-            return pre;
-          });
-          break;
-        case 'ArrowDown':
-          setIsOnIndex(pre => {
-            if (!data?.length) return pre;
-            if (pre === data?.length - 1) return pre;
-            else pre += 1;
-            return pre;
-          });
-          break;
-        default:
-          return;
-      }
-    };
-
-    if (display?.isFocused) {
-      window.addEventListener('keyup', moveList);
-    } else {
-      window.removeEventListener('keyup', moveList);
-    }
-    return () => {
-      window.removeEventListener('keyup', moveList);
-    };
-  }, [data?.length, display?.isFocused]);
+  const { isOnIndex, targetRef } = useOnidx();
 
   return (
     display?.isFocused && (
-      <ul>
+      <ul
+        ref={targetRef}
+        className="max-h-[500px] w-[70%] p-7 bg-blue-600/40 overflow-scroll  rounded-xl"
+      >
         {data?.length === 0 ? (
           <li>검색어가 없습니다.</li>
         ) : (
