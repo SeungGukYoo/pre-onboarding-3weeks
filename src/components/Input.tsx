@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useDisplay } from '../context/DisplayListContext';
-import useInput from '../hook/useInput';
+import useInput from '../context/hook/useInput';
 
 function Input() {
   const inputRef = useRef<HTMLInputElement>(null);
