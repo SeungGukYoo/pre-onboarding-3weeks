@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDiseasStore } from '../context/DiseaseStoreContext';
 import { useDisplay } from '../context/DisplayListContext';
 import useOnidx from '../hook/useOnidx';

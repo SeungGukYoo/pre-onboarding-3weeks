@@ -1,3 +1,4 @@
+import React from 'react';
 import Input from './components/Input';
 import List from './components/List';
 import { DiseasStoreProvider } from './context/DiseaseStoreContext';
