@@ -1,12 +1,68 @@
-# 캐싱 및 API 호출 전략
+# 👹 원티드 프리온보딩 2주차 과제 👹
+
+## 개요
+
+- 본 페이지는 원티드 프리온보딩 인턴십 3주차 개인 과제를 위한 리드미입니다.
+- 해당 repository는 3주차 팀 프로젝트를 위한 작업물이며, 리팩토링과 best practice 코드가 적용된 작업물은 아닙니다.
+
+## 2. 팀원 구성 및 역할
+
+- 🙋🏼‍♂️ 유승국의 [GitHub](https://github.com/SeungGukYoo)
+
+## 3. 프로젝트 목표
+
+- 검색어가 없을 시 "검색어 없음" 표시
+- API 호출별로 캐싱 구현
+- 입력마다 API 호출하지 않도록 구현
+- 키보드만으로 추천 검색어들 이동 가능하도록 구현
+
+## 4. 배포 URL 및 사용법
+
+[🔗 배포링크](https://pre-onboarding-3weeks.vercel.app/)
+
+1. 검색어를 입력
+2. 찾고자 하는 값이 있다면 결과가 나오고 그렇지 않다면 "검색어 없음"이 출력
+3. 검색어를 입력한 후에 키보드 "위" 혹은 "아래" 버튼을 눌러 이동
+
+**API서버가 Json-server+Vercel로 이루어져있어 간혹 데이터를 가져오지 못하는 경우가 있습니다.**</br>
+**그런 경우에는 새로고침을 한번 해주시면 감사하겠습니다.**
+
+## 5. 프로젝트 구조
+
+<img width="262" alt="스크린샷 2023-09-08 오후 1 34 51" src="https://github.com/SeungGukYoo/pre-onboarding-3weeks/assets/119836116/4f720b91-16e7-4544-9d04-dcddaec3f86a">
+
+## 6. 기술 스택
+
+<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> <img height=20 src="https://img.shields.io/badge/postcss-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white"> <img height=20 src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img 
+ height=20 src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+<img 
+ height=20 src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+<img 
+ height=20 src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+
+## 7. UI
+
+1. 기본 상태
+
+   <img width="1152" alt="스크린샷 2023-09-08 오후 1 33 26" src="https://github.com/SeungGukYoo/pre-onboarding-3weeks/assets/119836116/7eecca99-019a-4a5d-a94a-6c1fc693fa41">
+
+2. 검색어 입력 전
+
+   <img width="1152" alt="스크린샷 2023-09-08 오후 1 33 30" src="https://github.com/SeungGukYoo/pre-onboarding-3weeks/assets/119836116/c6027575-029b-4462-a81b-3a81802e742e">
+
+3. 검색어 입력 후
+
+   <img width="1152" alt="스크린샷 2023-09-08 오후 1 33 35" src="https://github.com/SeungGukYoo/pre-onboarding-3weeks/assets/119836116/b05d7891-245c-4ee6-9c7b-19411e15412b">
+
+## 8. 캐싱 및 API 호출 전략
 
 캐싱 라이브러리로 유명한 React-query가 동작하는 방식을 참고하여 제작하였습니다.
 
-## 1. 캐싱에 사용된 기술
+### 캐싱에 사용된 기술
 
 - Cache API (브라우저 자체 제공)
 
-## 2. 캐싱 구현 방법
+### 캐싱 구현 방법
 
 캐싱 기술을 구현할 때 고려해야할 점은 적절한 데이터를 캐싱하며, 적절한 시점에 캐싱된 데이터를 파기하는 과정이 존재해야 한다.
 또한 캐싱된 데이터가 신선한(stale)값인지를 구분해야 한다.
@@ -19,13 +75,13 @@
 
 위 과정은 캐싱 값과 유효기간(stale)값에 따라 유기적으로 동작하기 때문에 캐싱을 위한 동작들을 Class로 관리하여 모듈화 하였습니다.
 
-### 2-1. 캐싱 과정
+### 캐싱 과정
 
 요약한 전체적인 과정은 아래와 같습니다.
 
 <img width="600" alt="스크린샷 2023-09-08 오전 2 02 57" src="https://github.com/SeungGukYoo/pre-onboarding-3weeks/assets/119836116/86540939-658b-424d-a531-e0ccc9a7e31b">
 
-### 2-2. 캐싱 구현 코드
+### 캐싱 구현 코드
 
 데이터를 관리하기 위한 캐시의 동작방식은 아래와 같습니다.
 
@@ -81,7 +137,7 @@
 
      Axios를 사용하고 있었기 때문에 Cache API를 사용하기 위해서 fetch형태의 응답으로 변환해준후에 캐시에 저장되어 집니다.
 
-     `addCacheTime` 메소드는 삭제하는 메소드를 실행시키며 종료하게 됩니다.
+     캐시 스토리이지에서 캐싱된 데이터를 삭제하는 메소드인 `addCacheTime` 메소드는 실행시키며 종료하게 됩니다.
 
      ```ts
      async addCache(inputText: string, response: AxiosResponse) {
@@ -104,7 +160,7 @@
        }
      ```
 
-3. **2번(캐싱된 값이 없는 경우)** 과정에서 실행된 `deleteCacheTimer` 메소드는 생성된 3개의 캐시 스토리지로부터 전달받은 값을 바탕으로 주소를 찾은 후에 모두 없앰으로써 캐시 스토리지를 관리하는 역할을 하고 있습니다.
+3. **2번(캐싱된 값이 없는 경우)** 과정에서 실행된 `deleteCacheTimer` 메소드는 생성된 3개의 캐시 스토리지에서 전달받은 값을 바탕으로 주소를 찾은 후에 일치하는 캐싱 데이터를 없앰으로써 전체적인 캐시 스토리지를 관리하는 역할을 하고 있습니다.
 
    ```ts
    deleteCacheTimer(inputText: string, deleteCacheTime: number) {
@@ -119,11 +175,11 @@
      }
    ```
 
-## 3. API 호출 전략
+### API 호출 전략
 
 모든 API를 요청하기 전에 캐싱값을 거친 후에 API 호출이 발생하게 됩니다.
 
-### 3-1. 캐싱을 통한 API 호출 전략
+#### 캐싱을 통한 API 호출 전략
 
 - **값이 stale하지 않는 경우**
   캐싱된 값이 stale하지 않고 서버에서 바뀌었을 수 있다고 판단하여 설정해 놓은 시간이 지난 후에는 API를 다시 호출한다.
@@ -132,7 +188,7 @@
 - **값이 캐싱되지 않거나, 캐시 스토리지에서 삭제된 경우**
   캐싱되지 않은 값의 경우와 캐시 스토리지에서 삭제가 된 값의 경우에는 API를 호출하여 값을 캐싱하고 있습니다.
 
-### 3-2. 디바운싱을 통한 API 호출 전략
+#### 디바운싱을 통한 API 호출 전략
 
 - **디바운싱**
   입력 창에 값을 입력할 때 데이터가 호출이 되게 되는데, 디바운싱 기법을 통해서 정해놓은 시간동안 동일한 이벤트가 계속해서 발생한다면 API에 요청을 하지 않고, 이벤트가 일정시간동안 발생하지 않는다면 그떄 API에 요청을 하게됩니다.
