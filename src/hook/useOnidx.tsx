@@ -51,6 +51,13 @@ function useOnidx() {
     };
   }, [display?.isFocused, moveList]);
 
+  useEffect(() => {
+    const childItemChildren = targetRef.current?.children;
+    if (childItemChildren && childItemChildren[isOnIndex]) {
+      childItemChildren[isOnIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isOnIndex, targetRef]);
+
   return { moveList, isOnIndex, targetRef };
 }
 
